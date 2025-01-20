@@ -26,7 +26,7 @@ func (r ProductRepository) GetAll() ([]models.Product, error) {
 	return r.products, nil
 }
 
-func (r ProductRepository) GetByID(id int32) (*models.Product, error) {
+func (r ProductRepository) GetByID(id int) (*models.Product, error) {
 	for _, myProduct := range r.products {
 		if myProduct.GetId() == id {
 			return &myProduct, nil
@@ -36,11 +36,23 @@ func (r ProductRepository) GetByID(id int32) (*models.Product, error) {
 	return nil, errors.New("no existe el producto ")
 }
 
-func (r *ProductRepository) Update(id int32, updatedProduct models.Product) error {
+func (r *ProductRepository) Update(id int, updatedProduct models.Product) error {
 	for i, myProduct := range r.products {
 		if myProduct.GetId() == id {
 			r.products[i] = updatedProduct
 			fmt.Println("Product: ", updatedProduct)
+			return nil
+		}
+	}
+
+	return errors.New("producto no encontrado")
+}
+
+func (r *ProductRepository) Delete(id int) error {
+	for i, myProduct := range r.products {
+		if myProduct.GetId() == id {
+			r.products = append(r.products[:i], r.products[i+1:]...)
+			fmt.Println("Producto eliminado: ", id)
 			return nil
 		}
 	}

@@ -1,23 +1,23 @@
 package models
 
 type Product struct {
-	id    int32   `json:"id"`
-	name  string  `json:"name"`
-	price float32 `json:"price"`
+	Id    int     `json:"id"`
+	Name  string  `json:"name"`
+	Price float32 `json:"price"`
 }
 
 func NewProduct(name string, price float32) *Product {
-	return &Product{id: 1, name: name, price: price}
+	return &Product{Id: 1, Name: name, Price: price}
 }
 
 func (p *Product) GetName() string {
-	return p.name
+	return p.Name
 }
 
-func (p Product) GetId() int32 {
-	return p.id
+func (p Product) GetId() int {
+	return p.Id
 }
 
 func (p *Product) SetName(name string) {
-	p.name = name
+	p.Name = name
 }
