@@ -26,7 +26,7 @@ func (ctrl ProductController) GetAll(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, responses.Response{
 			Success: false,
-			Message: "ocurrió un erro al obtener los productos",
+			Message: "ocurrió un error al obtener los productos",
 			Error:   err.Error(),
 		})
 		return
@@ -54,7 +54,7 @@ func (ctrl ProductController) GetById(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, responses.Response{
 			Success: false,
-			Message: "ocurrió un erro al obtener el productos",
+			Message: "ocurrió un error al obtener el productos",
 			Error:   err.Error(),
 		})
 		return
