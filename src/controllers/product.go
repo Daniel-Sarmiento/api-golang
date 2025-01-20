@@ -4,7 +4,6 @@ import (
 	"api/src/models"
 	"api/src/repositories"
 	"api/src/responses"
-	"log"
 	"net/http"
 	"strconv"
 
@@ -80,8 +79,6 @@ func (ctrl ProductController) Create(c *gin.Context) {
 		})
 		return
 	}
-
-	log.Println(newProduct)
 
 	err = ctrl.productRepository.Save(newProduct)
 	if err != nil {
