@@ -1,42 +1,39 @@
-package repositories
+package infraestructure
 
 import (
-	"api/src/models"
+	"api/src/domain"
 	"errors"
 	"fmt"
 )
 
-type ProductRepository struct {
-	products []models.Product
+type MysqlProductRepository struct {
+	products []domain.Product
 }
 
-func NewProductRepository() *ProductRepository {
-	return &ProductRepository{
-		products: []models.Product{},
-	}
+func NewMysqlProductRepository() *MysqlProductRepository {
+	return &MysqlProductRepository{}
 }
 
-func (r *ProductRepository) Save(product models.Product) error {
+func (r *MysqlProductRepository) Save(product domain.Product) error {
 	r.products = append(r.products, product)
-	fmt.Println("Product saved:", product)
 	return nil
-}
+} 
 
-func (r ProductRepository) GetAll() ([]models.Product, error) {
+func (r MysqlProductRepository) GetAll() ([]domain.Product, error) {
 	return r.products, nil
 }
 
-func (r ProductRepository) GetByID(id int) (*models.Product, error) {
+func (r MysqlProductRepository) GetByID(id int) (*domain.Product, error) {
 	for _, myProduct := range r.products {
 		if myProduct.GetId() == id {
 			return &myProduct, nil
 		}
 	}
-
-	return nil, errors.New("no existe el producto ")
+	
+	return nil, errors.New("no existe el producto")
 }
 
-func (r *ProductRepository) Update(id int, updatedProduct models.Product) error {
+func (r *MysqlProductRepository) Update(id int, updatedProduct domain.Product) error {
 	for i, myProduct := range r.products {
 		if myProduct.GetId() == id {
 			r.products[i] = updatedProduct
@@ -48,7 +45,7 @@ func (r *ProductRepository) Update(id int, updatedProduct models.Product) error 
 	return errors.New("producto no encontrado")
 }
 
-func (r *ProductRepository) Delete(id int) error {
+func (r *MysqlProductRepository) Delete(id int) error {
 	for i, myProduct := range r.products {
 		if myProduct.GetId() == id {
 			r.products = append(r.products[:i], r.products[i+1:]...)
@@ -56,6 +53,6 @@ func (r *ProductRepository) Delete(id int) error {
 			return nil
 		}
 	}
-
+	
 	return errors.New("producto no encontrado")
 }

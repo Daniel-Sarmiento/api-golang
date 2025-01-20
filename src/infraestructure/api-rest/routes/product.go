@@ -1,17 +1,16 @@
 package routes
 
 import (
-	"api/src/controllers"
-	"api/src/repositories"
+	"api/src/infraestructure/api-rest/controllers"
 
 	"github.com/gin-gonic/gin"
 )
 
-func AddProductRoutes(engine *gin.Engine) {
+func AddProductRoutes(engine *gin.Engine, productController controllers.CreateProductController) {
 
-	productRepository := repositories.NewProductRepository()
+	/* productRepository := repositories.NewProductRepository()
 	productController := controllers.NewProductController(productRepository)
-	
+
 	productsRoutes := engine.Group("/products")
 	{
 		productsRoutes.GET("", productController.GetAll)
@@ -19,6 +18,6 @@ func AddProductRoutes(engine *gin.Engine) {
 		productsRoutes.POST("", productController.Create)
 		productsRoutes.PUT("/:id", productController.Update)
 		productsRoutes.DELETE("/:id", productController.Delete)
-	}
+	} */
 
 }
