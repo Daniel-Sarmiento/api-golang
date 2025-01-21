@@ -1,4 +1,4 @@
-package infraestructure
+package adapters
 
 import (
 	"api/src/domain"
@@ -6,24 +6,26 @@ import (
 	"fmt"
 )
 
-type MysqlProductRepository struct {
+type MySQLProductRepository struct {
 	products []domain.Product
 }
 
-func NewMysqlProductRepository() *MysqlProductRepository {
-	return &MysqlProductRepository{}
+func NewMySQLProductRepository() *MySQLProductRepository {
+	return &MySQLProductRepository{
+		products: []domain.Product{},
+	}
 }
 
-func (r *MysqlProductRepository) Save(product domain.Product) error {
+func (r *MySQLProductRepository) Save(product domain.Product) error {
 	r.products = append(r.products, product)
 	return nil
 } 
 
-func (r MysqlProductRepository) GetAll() ([]domain.Product, error) {
+func (r MySQLProductRepository) GetAll() ([]domain.Product, error) {
 	return r.products, nil
 }
 
-func (r MysqlProductRepository) GetByID(id int) (*domain.Product, error) {
+func (r MySQLProductRepository) GetByID(id int) (*domain.Product, error) {
 	for _, myProduct := range r.products {
 		if myProduct.GetId() == id {
 			return &myProduct, nil
@@ -33,7 +35,7 @@ func (r MysqlProductRepository) GetByID(id int) (*domain.Product, error) {
 	return nil, errors.New("no existe el producto")
 }
 
-func (r *MysqlProductRepository) Update(id int, updatedProduct domain.Product) error {
+func (r *MySQLProductRepository) Update(id int, updatedProduct domain.Product) error {
 	for i, myProduct := range r.products {
 		if myProduct.GetId() == id {
 			r.products[i] = updatedProduct
@@ -45,7 +47,7 @@ func (r *MysqlProductRepository) Update(id int, updatedProduct domain.Product) e
 	return errors.New("producto no encontrado")
 }
 
-func (r *MysqlProductRepository) Delete(id int) error {
+func (r *MySQLProductRepository) Delete(id int) error {
 	for i, myProduct := range r.products {
 		if myProduct.GetId() == id {
 			r.products = append(r.products[:i], r.products[i+1:]...)
